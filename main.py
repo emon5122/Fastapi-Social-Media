@@ -14,4 +14,4 @@ def jhsad():
 
 @app.get('/test')
 def test():
-    return {"message": "Test EndPoint"}
+    return {"message": "try"}
