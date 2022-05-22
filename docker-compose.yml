@@ -1,0 +1,12 @@
+version: '3'
+services:
+     app:
+        container_name: 'fastapi'
+        image: fastapi:test
+        ports:
+           - 8080:8000
+        tty: true
+        volumes:
+          - ~/Dev/FastAPI/:/app
+        restart: unless-stopped
+        command: uvicorn main:app --reload
