@@ -7,6 +7,6 @@ services:
            - 80:8000
         tty: true
         volumes:
-          - "$(pwd)/src:/app"
+           - ./src:/app
         restart: unless-stopped
         command: uvicorn main:app --host 0.0.0.0 --reload
