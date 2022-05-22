@@ -1,10 +1,7 @@
-from turtle import title
-from typing import AsyncIterable, Optional
-from urllib.request import CacheFTPHandler
-from fastapi import FastAPI,status
+from http.client import HTTPException
+from fastapi import FastAPI,status,Response,HTTPException
 from fastapi.params import Body
 from pydantic import BaseModel
-from http import HTTPStatus
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
@@ -31,7 +28,7 @@ class post(BaseModel):
 
 @app.get("/")
 def root():
-    return {"message": "Oh yeah"}
+    return {"message": "That just works!"}
 
 @app.get("/posts")
 def get_posts():
@@ -45,4 +42,12 @@ def create_posts(post: post):
     cur.execute("""INSERT INTO posts (title, content, ispublished) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.ispublished))
     new_post = cur.fetchone()
     conn.commit()
-    return {"message":new_post}
+    return {"Response":new_post}
+
+@app.get("/posts/{id}")
+def get_post_by_id(id: int):
+    cur.execute("""SELECT title,content FROM posts WHERE id=%s """, (str(id)) )
+    post = cur.fetchone()
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} was not found")
+    return {"Post Details":post}
