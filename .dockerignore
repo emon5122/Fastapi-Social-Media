@@ -4,3 +4,4 @@ Dockerfile
 Dockerfile
 docker-compose.yml
 .github
+venv
