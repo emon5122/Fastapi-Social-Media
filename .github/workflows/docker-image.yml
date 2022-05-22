@@ -3,7 +3,7 @@ name: Docker CI
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   Neuvemi:
@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ghcr.io/emon5122/Fastapi
+        run: docker build . --file Dockerfile --tag ghcr.io/emon5122/fastapi
       - name: Docker Login
         run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u emon5122 --password-stdin
       - name: Docker Push
-        run: docker push ghcr.io/emon5122/Fastapi
+        run: docker push ghcr.io/emon5122/fastapi
