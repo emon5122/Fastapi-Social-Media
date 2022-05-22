@@ -1,9 +1,11 @@
 from turtle import title
-from typing import AsyncIterable
+from typing import AsyncIterable, Optional
 from fastapi import FastAPI,status
 from fastapi.params import Body
 from pydantic import BaseModel
 from http import HTTPStatus
+import psycopg2
+
 
 app = FastAPI()
 
