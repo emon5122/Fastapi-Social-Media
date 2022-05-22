@@ -27,7 +27,7 @@ while True:
 class post(BaseModel):
     title: str
     content: str
-    isPublished: bool = True
+    ispublished: bool = True
 
 @app.get("/")
 def root():
@@ -42,7 +42,7 @@ def get_posts():
 
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
 def create_posts(post: post):
-    cur.execute("""INSERT INTO posts (title, content, isPublished) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.isPublished))
+    cur.execute("""INSERT INTO posts (title, content, ispublished) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.ispublished))
     new_post = cur.fetchone()
     conn.commit()
     return {"message":new_post}
