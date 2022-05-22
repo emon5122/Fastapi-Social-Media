@@ -2,11 +2,11 @@ version: '3'
 services:
      app:
         container_name: 'fastapi'
-        image: gchr.io/emon5122/fastapi:latest
+        image: ghcr.io/emon5122/fastapi:latest
         ports:
            - 80:8000
         tty: true
         volumes:
-          - "${PWD}/src:/app"
+          - "$(pwd)/src:/app"
         restart: unless-stopped
         command: uvicorn main:app --host 0.0.0.0 --reload
