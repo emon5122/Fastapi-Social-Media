@@ -11,3 +11,7 @@ async def root():
 @app.get("/app")
 def jhsad():
     return{'title': 'it works'}
+
+@app.get('/test')
+def test():
+    return {"message": "Test EndPoint"}
