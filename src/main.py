@@ -75,3 +75,13 @@ def delete_post_by_id(id: int, db: Session = Depends(get_db)):
     
     post.delete(synchronize_session=False)
     db.commit()
+
+
+#Create User
+@app.post("/users", status_code=status.HTTP_201_CREATED, response_model=ResponseUserCreate)
+def create_user(user:UserCreate, db: Session = Depends(get_db)):
+    new_user = models.User(**user.dict())
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
