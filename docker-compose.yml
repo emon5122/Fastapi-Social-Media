@@ -19,17 +19,5 @@ services:
       - 'PGDATA=/var/lib/postgresql/data/pgdata'
     volumes:
       - ./db_vol:/var/lib/postgresql/data/pgdata
-    logging:
-            driver: none
-  pgadmin:
-    container_name: 'pgadmin'
-    image: dpage/pgadmin4
-    environment:
-      - 'PGADMIN_DEFAULT_EMAIL=abc@example.com'
-      - 'PGADMIN_DEFAULT_PASSWORD=Example'
-      - 'PGADMIN_CONFIG_SERVER_MODE=False'
-    restart: unless-stopped
-    ports:
-      - 8080:80
-    logging:
-            driver: none
+
+
