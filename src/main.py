@@ -1,9 +1,9 @@
 from http.client import HTTPException
-from fastapi import FastAPI,status,Response,HTTPException
+from fastapi import FastAPI,status,HTTPException
 from fastapi.params import Body
 from pydantic import BaseModel
 import psycopg2
-from psycopg2.extras import RealDictCursor
+from psycopg2.extras import RealDictCursor 
 import time
 
 # Initializes FastAPI
@@ -51,3 +51,24 @@ def get_post_by_id(id: int):
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} was not found")
     return {"Post Details":post}
+
+@app.delete("/posts/{id}",status_code=status.HTTP_204_NO_CONTENT)
+def delete_post_by_id(id: int):
+    cur.execute("""DELETE FROM posts WHERE id=%s RETURNING *""", (str(id)))
+    deleted_post=cur.fetchone()
+    conn.commit()
+    return {"Post Details":deleted_post}
+    if not deleted_post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} was not found")
+
+@app.put("/posts/{id}")
+def update_by_id(id:int, post:post):
+    cur.execute("""UPDATE posts SET title=%s,content=%s,ispublished=%s WHERE id=%s RETURNING *""",(post.title,post.content,post.ispublished,(str(id))))
+    updated_post=cur.fetchone()
+    conn.commit()
+    if not updated_post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} was not found")
+    return {"Post Details":updated_post}
+
+
+    
