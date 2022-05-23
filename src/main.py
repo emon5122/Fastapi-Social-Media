@@ -1,21 +1,23 @@
 from http.client import HTTPException
-from fastapi import FastAPI,status,HTTPException
+from sqlite3 import dbapi2
+
+from pkg_resources import yield_lines
+from fastapi import FastAPI,status,HTTPException, Depends
 from fastapi.params import Body
 from pydantic import BaseModel
 import psycopg2
 from psycopg2.extras import RealDictCursor 
+from sqlalchemy.orm import Session
 import time
-from . import models
-from .database import  engine
+import models
+from database import  engine, get_db
 
-
-#SQLAlchemy Specefic
+#SQLAlchemy Creates Tables on database
 models.Base.metadata.create_all(bind=engine)
 
-# Initializes FastAPI
+#Initializes FastAPI
 app = FastAPI()
 
-#
 #Database Connection
 while True:
     try:
@@ -79,4 +81,6 @@ def update_by_id(id:int, post:post):
     return {"Post Details":updated_post}
 
 
-    
+@app.get("/sqlalchemy")
+def test_posts(db: Session = Depends(get_db)):
+    return{'response': 200}

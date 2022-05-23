@@ -10,14 +10,11 @@ services:
       - ./src:/app
     restart: unless-stopped
     command: uvicorn main:app --host 0.0.0.0 --reload
-  database:
-    container_name: 'postgress'
-    image: postgres
-    restart: unless-stopped
-    environment:
-      - 'POSTGRES_PASSWORD=sdkfhkj234ou23o4ldfsdn'
-      - 'PGDATA=/var/lib/postgresql/data/pgdata'
-    volumes:
-      - ./db_vol:/var/lib/postgresql/data/pgdata
+    networks:
+      - postgresql_db
+networks:
+   postgresql_db:
+     external: true
+
 
 

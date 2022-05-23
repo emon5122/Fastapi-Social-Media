@@ -1,0 +1,29 @@
+version: '3'
+services: 
+  pgadmin:
+     container_name: 'pgadmin'
+     image: dpage/pgadmin4
+     environment:
+       - 'PGADMIN_DEFAULT_EMAIL=abc@xyz.com'
+       - 'PGADMIN_DEFAULT_PASSWORD=Admin'
+       - 'PGADMIN_CONFIG_SERVER_MODE=False'
+     restart: unless-stopped
+     ports:
+          - 8080:80
+     volumes:
+       - 'pgadmin:/var/lib/pgadmin'
+  database:
+        container_name: 'postgress'
+        image: postgres
+        restart: unless-stopped
+        environment:
+             - 'POSTGRES_PASSWORD=sdkfhkj234ou23o4ldfsdn'
+             - 'PGDATA=/var/lib/postgresql/data/pgdata'
+        volumes:
+            - db_vol:/var/lib/postgresql/data/pgdata
+        ports:
+           - 5432:5432
+
+volumes:
+      pgadmin:
+      db_vol:
