@@ -5,9 +5,17 @@ from pydantic import BaseModel
 import psycopg2
 from psycopg2.extras import RealDictCursor 
 import time
+from . import models
+from .database import  engine
+
+
+#SQLAlchemy Specefic
+models.Base.metadata.create_all(bind=engine)
 
 # Initializes FastAPI
 app = FastAPI()
+
+#
 #Database Connection
 while True:
     try:
