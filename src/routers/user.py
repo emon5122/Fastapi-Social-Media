@@ -7,7 +7,8 @@ from schemas import *
 from utils import *
 
 router = APIRouter(
-    prefix="/users"
+    prefix="/users",
+    tags=['Users']
 )
 #Create User
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ResponseUserCreate)

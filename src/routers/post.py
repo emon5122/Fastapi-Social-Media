@@ -9,7 +9,8 @@ from utils import *
 
 
 router = APIRouter(
-    prefix="/posts"
+    prefix="/posts",
+    tags=["Posts"]
 )
 #Returns all posts
 @router.get("/", response_model=List[ResponsePost])
