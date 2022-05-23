@@ -10,11 +10,8 @@ services:
       - ./src:/app
     restart: unless-stopped
     command: uvicorn main:app --host 0.0.0.0 --reload
-    networks:
-      - postgresql_db
+    networks: 
+      - db
 networks:
-   postgresql_db:
-     external: true
-
-
-
+  db:
+   external: true

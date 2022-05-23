@@ -12,6 +12,8 @@ services:
           - 8080:80
      volumes:
        - 'pgadmin:/var/lib/pgadmin'
+     networks:
+       - db
   database:
         container_name: 'postgress'
         image: postgres
@@ -23,7 +25,13 @@ services:
             - db_vol:/var/lib/postgresql/data/pgdata
         ports:
            - 5432:5432
+        networks:
+            - db
 
 volumes:
       pgadmin:
       db_vol:
+
+networks:
+  db:
+   external: true
