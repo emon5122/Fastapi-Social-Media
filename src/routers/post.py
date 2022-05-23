@@ -8,9 +8,11 @@ from schemas import *
 from utils import *
 
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/posts"
+)
 #Returns all posts
-@router.get("/posts", response_model=List[ResponsePost])
+@router.get("/", response_model=List[ResponsePost])
 def get_posts(db: Session = Depends(get_db)):
     # cur.execute("""SELECT * FROM posts """)
     # posts = cur.fetchall()
@@ -18,7 +20,7 @@ def get_posts(db: Session = Depends(get_db)):
     return posts
 
 #Returns specefic post
-@router.get("/posts/{id}", response_model=ResponsePost)
+@router.get("/{id}", response_model=ResponsePost)
 def get_post_by_id(id: int, db: Session = Depends(get_db)):
     # cur.execute("""SELECT title,content FROM posts WHERE id=%s """, (str(id)) )
     # post = cur.fetchone() 
@@ -28,7 +30,7 @@ def get_post_by_id(id: int, db: Session = Depends(get_db)):
     return post
 
 #Creates Post
-@router.post("/posts", status_code=status.HTTP_201_CREATED, response_model=ResponsePost)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=ResponsePost)
 def create_posts(post: CreatePost, db: Session = Depends(get_db)):
     # cur.execute("""INSERT INTO posts (title, content, ispublished) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.ispublished))
     # new_post = cur.fetchone()
@@ -41,7 +43,7 @@ def create_posts(post: CreatePost, db: Session = Depends(get_db)):
     return new_post
 
 #Updates specefic post and returns updated value
-@router.put("/posts/{id}", response_model=ResponsePost)
+@router.put("/{id}", response_model=ResponsePost)
 def update_by_id(id:int, updated_post:CreatePost, db: Session = Depends(get_db)):
     # cur.execute("""UPDATE posts SET title=%s,content=%s,ispublished=%s WHERE id=%s RETURNING *""",(post.title,post.content,post.ispublished,(str(id))))
     # updated_post=cur.fetchone()
@@ -56,7 +58,7 @@ def update_by_id(id:int, updated_post:CreatePost, db: Session = Depends(get_db))
     return post_query.first()
 
 #Delete Specefic Post
-@router.delete("/posts/{id}",status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
 def delete_post_by_id(id: int, db: Session = Depends(get_db)):
     # cur.execute("""DELETE FROM posts WHERE id=%s RETURNING *""", (str(id)))
     # deleted_post=cur.fetchone()
