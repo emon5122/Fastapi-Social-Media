@@ -11,8 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
+        env:
+          DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
         run: docker build . --file Dockerfile --tag ghcr.io/emon5122/fastapi
       - name: Docker Login
-        run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u emon5122 --password-stdin
+        run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u DOCKER_USER_NAME --password-stdin
       - name: Docker Push
         run: docker push ghcr.io/emon5122/fastapi
