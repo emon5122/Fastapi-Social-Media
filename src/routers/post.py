@@ -6,6 +6,7 @@ import models
 from database import  get_db
 from schemas import *
 from utils import *
+from oauth2 import get_current_user
 
 
 router = APIRouter(
@@ -32,7 +33,7 @@ def get_post_by_id(id: int, db: Session = Depends(get_db)):
 
 #Creates Post
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ResponsePost)
-def create_posts(post: CreatePost, db: Session = Depends(get_db)):
+def create_posts(post: CreatePost, db: Session = Depends(get_db), get_current_user: int = Depends(get_current_user)):
     # cur.execute("""INSERT INTO posts (title, content, ispublished) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.ispublished))
     # new_post = cur.fetchone()
     # conn.commit()
