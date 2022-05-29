@@ -38,7 +38,6 @@ def create_posts(post: CreatePost, db: Session = Depends(get_db), current_user: 
     # new_post = cur.fetchone()
     # conn.commit()
     # new_post = models.Post(title=post.title, content=post.content, ispublished=post.ispublished)
-    print(current_user.email)
     new_post = models.Post(**post.dict(), owner_id = current_user.id)
     db.add(new_post)
     db.commit()
@@ -56,6 +55,9 @@ def update_by_id(id:int, updated_post:CreatePost, db: Session = Depends(get_db),
 
     if post == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {id} was not found")
+    if post.owner_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
+
     post_query.update(updated_post.dict(), synchronize_session=False)
     db.commit()
     return post_query.first()
@@ -66,11 +68,15 @@ def delete_post_by_id(id: int, db: Session = Depends(get_db), current_user: int 
     # cur.execute("""DELETE FROM posts WHERE id=%s RETURNING *""", (str(id)))
     # deleted_post=cur.fetchone()
     # conn.commit()
-    post = db.query(models.Post).filter(models.Post.id == id)
+    post_query = db.query(models.Post).filter(models.Post.id == id)
+    post = post_query.first()
     
-    if post.first() == None :
+    if post == None :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                                             detail=f"post with id: {id} was not found")
+
+    if post.owner_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN)
     
-    post.delete(synchronize_session=False)
+    post_query.delete(synchronize_session=False)
     db.commit()
