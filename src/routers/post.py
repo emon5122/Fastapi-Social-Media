@@ -33,11 +33,12 @@ def get_post_by_id(id: int, db: Session = Depends(get_db)):
 
 #Creates Post
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ResponsePost)
-def create_posts(post: CreatePost, db: Session = Depends(get_db), get_current_user: int = Depends(get_current_user)):
+def create_posts(post: CreatePost, db: Session = Depends(get_db), user_id: int =  Depends(get_current_user)):
     # cur.execute("""INSERT INTO posts (title, content, ispublished) VALUES (%s, %s, %s) RETURNING * """, (post.title, post.content, post.ispublished))
     # new_post = cur.fetchone()
     # conn.commit()
     # new_post = models.Post(title=post.title, content=post.content, ispublished=post.ispublished)
+    print(user_id)
     new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
