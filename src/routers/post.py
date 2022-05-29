@@ -39,7 +39,7 @@ def create_posts(post: CreatePost, db: Session = Depends(get_db), current_user: 
     # conn.commit()
     # new_post = models.Post(title=post.title, content=post.content, ispublished=post.ispublished)
     print(current_user.email)
-    new_post = models.Post(**post.dict())
+    new_post = models.Post(**post.dict(), owner_id = current_user.id)
     db.add(new_post)
     db.commit()
     db.refresh(new_post)

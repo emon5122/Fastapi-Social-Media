@@ -6,13 +6,13 @@ class PostBase(BaseModel):
     title: str
     content: str
     ispublished: bool = True
-    owner_id: int 
 
 class CreatePost(PostBase):
     pass
 
 class ResponsePost(PostBase):
     id: int
+    owner_id: int 
     created_at: datetime
 
     class Config:
