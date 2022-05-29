@@ -6,6 +6,7 @@ class PostBase(BaseModel):
     title: str
     content: str
     ispublished: bool = True
+    owner_id: int 
 
 class CreatePost(PostBase):
     pass
