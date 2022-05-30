@@ -1,7 +1,6 @@
-from fastapi import FastAPI,status,HTTPException, Depends, Response
-from fastapi.params import Body
+from fastapi import FastAPI
 import models
-from database import  engine, get_db
+from database import  engine
 from routers import post,user,auth
 
 

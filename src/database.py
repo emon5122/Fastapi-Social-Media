@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import time
 
 SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:sdkfhkj234ou23o4ldfsdn@database/FastAPI'
 

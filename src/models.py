@@ -1,5 +1,3 @@
-from enum import unique
-from tkinter import CASCADE
 from sqlalchemy import Column, Integer, PrimaryKeyConstraint, String, Boolean,ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import null,text
