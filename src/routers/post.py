@@ -15,10 +15,10 @@ router = APIRouter(
 )
 #Returns all posts
 @router.get("/", response_model=List[ResponsePost])
-def get_posts(db: Session = Depends(get_db), order: str = "desc", Limit: int = 10):
+def get_posts(db: Session = Depends(get_db), Limit: int = 10):
     # cur.execute("""SELECT * FROM posts """)
     # posts = cur.fetchall()
-    posts = db.query(models.Post).limit(Limit).order_by(order).all()
+    posts = db.query(models.Post).limit(Limit).all()
     return posts
 
 #Returns specefic post
