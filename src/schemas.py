@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, conint
 from typing import Optional
 
 
@@ -43,4 +43,8 @@ class ResponsePost(PostBase):
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
+
+class like(BaseModel):
+    post_id: int
+    dir: conint(le=1)
 

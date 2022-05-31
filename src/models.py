@@ -23,3 +23,8 @@ class Post(Base):
 
     owner = relationship("User")
 
+class Like(Base):
+    __tablename__ = "likes"
+
+    post_id =  Column(Integer, ForeignKey("posts.id",ondelete= "CASCADE"),  primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id",ondelete= "CASCADE"),  primary_key=True)
