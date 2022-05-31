@@ -1,8 +1,13 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:sdkfhkj234ou23o4ldfsdn@database/FastAPI'
+DB_USER=os.getenv("DBUSER")
+DB_PASS=os.getenv("DBPASS")
+DB_HOST=os.getenv("DBHOST")
+DB_NAME=os.getenv("DBNAME")
+SQLALCHEMY_DATABASE_URL = 'postgresql://DB_USER:DB_PASS@DB_HOST/DB_NAME'
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 

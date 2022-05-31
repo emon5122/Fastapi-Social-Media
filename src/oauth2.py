@@ -1,3 +1,4 @@
+import os
 from jose import JWTError, jwt
 from datetime import datetime,timedelta
 from fastapi import Depends, status, HTTPException
@@ -8,10 +9,11 @@ from database import get_db
 from models import User
 
 
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
-SECRET_KEY = "kjhdfskdjhf923487298rv27983n04v72348vn0923740m293c8479283c"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = os.getenv("Secret Key")
+ALGORITHM = os.getenv("Algorithm")
+ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("TokenExpire")
 
 
 def create_access_token(data: dict):

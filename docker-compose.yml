@@ -9,6 +9,14 @@ services:
     volumes:
       - ./src:/app
     restart: unless-stopped
+    environment:
+      - Secret_Key=${Secret_Key}
+      - Algorithm=${Algorithm}
+      - TokenExpire=${TokenExpire}
+      - DBUSER=${DBUSER}
+      - DBPASS=${DBPASS}
+      - DBHOST=${DBHOST}
+      - DBNAME=${DBNAME}
     command: uvicorn main:app --host 0.0.0.0 --reload
     networks: 
       - db
