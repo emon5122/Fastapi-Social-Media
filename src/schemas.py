@@ -44,7 +44,7 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
 
-class like(BaseModel):
-    post_id: int
+class Like(BaseModel):
+    post_idd: int
     dir: conint(le=1)
 
