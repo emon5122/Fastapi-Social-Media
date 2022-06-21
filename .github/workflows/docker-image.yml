@@ -9,19 +9,24 @@ jobs:
   Docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Docker Login
-        env:
-          DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
-        run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u DOCKER_USER_NAME --password-stdin
+      - name: checkout
       - uses: actions/checkout@v3
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+      - uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v2    
-      - name: Build the Docker image & push
-        run: |
-              timestamp=$(date +%Y%m%d%H%M%S)
-              docker buildx build --platform linux/amd64,linux/arm64 . --file Dockerfile --tag ghcr.io/emon5122/fastapi:$timestamp --push
+        uses: docker/setup-buildx-action@v2 
+      - name: Docker Login
+      - uses: docker/login-action@v2
+      -  with:
+             username: ${{ secrets.DOCKER_USER_NAME }}
+             password: ${{secrets.DOCKER_IMG}}
+      - name: Build and Push
+      - uses: docker/build-push-action@v3
+      - run: timestamp=$(date +%Y%m%d%H%M%S)
+      - with:
+            context: .
+            platform: platform linux/amd64,linux/arm64
+            push: true
+            tags: ghcr.io/emon5122/fastapi:$timestamp
+
 
