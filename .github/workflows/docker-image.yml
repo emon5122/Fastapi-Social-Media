@@ -14,8 +14,14 @@ jobs:
         env:
           DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
         run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u DOCKER_USER_NAME --password-stdin
+      - uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2    
       - name: Build the Docker image & push
         run: |
               timestamp=$(date +%Y%m%d%H%M%S)
-              docker build . --file Dockerfile --tag ghcr.io/emon5122/fastapi:$timestamp --push
+              docker buildx build --platform linux/amd64,linux/arm64 . --file Dockerfile --tag ghcr.io/emon5122/fastapi:$timestamp --push
 
