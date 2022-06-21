@@ -15,7 +15,7 @@ jobs:
           DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
         run: |
               timestamp=$(date +%Y%m%d%H%M%S)
-              docker build . --file Dockerfile --tag ghcr.io/emon5122/fastapi:timestamp --tag ghcr.io/emon5122/fastapi:latest
+              docker build . --file Dockerfile --tag ghcr.io/emon5122/fastapi:$timestamp --tag ghcr.io/emon5122/fastapi:latest
       - name: Docker Login
         run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u DOCKER_USER_NAME --password-stdin
       - name: Docker Push
