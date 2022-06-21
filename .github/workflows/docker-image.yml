@@ -10,13 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build the Docker image
+      - name: Docker Login
         env:
           DOCKER_USER_NAME: ${{ secrets.DOCKER_USER_NAME }}
+        run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u DOCKER_USER_NAME --password-stdin
+      - name: Build the Docker image & push
         run: |
               timestamp=$(date +%Y%m%d%H%M%S)
-              docker build . --file Dockerfile --tag ghcr.io/emon5122/fastapi:$timestamp
-      - name: Docker Login
-        run: echo ${{secrets.DOCKER_IMG}} | docker login ghcr.io -u DOCKER_USER_NAME --password-stdin
-      - name: Docker Push
-        run: docker push ghcr.io/emon5122/fastapi
+              docker build . --file Dockerfile --tag ghcr.io/emon5122/fastapi:$timestamp --push
+
