@@ -26,15 +26,12 @@ jobs:
            username: ${{ secrets.DOCKER_USER_NAME }}
            password: ${{secrets.DOCKER_IMG}}
       -
-        name: Timestamp collection
-        run: timestamp=$(date +%Y%m%d%H%M%S)
-      -
         name: Build and Push
         uses: docker/build-push-action@v3
         with:
             context: .
             platform: platform linux/amd64,linux/arm64
             push: true
-            tags: ghcr.io/emon5122/fastapi:$timestamp
+            tags: ghcr.io/emon5122/fastapi
 
 
