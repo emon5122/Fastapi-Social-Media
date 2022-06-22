@@ -26,6 +26,14 @@ jobs:
            username: ${{ secrets.DOCKER_USER_NAME }}
            password: ${{secrets.DOCKER_IMG}}
       -
+        name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      -
         name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
@@ -39,10 +47,12 @@ jobs:
             org.opencontainers.image.title=FastAPI
             org.opencontainers.image.description=Social Media APIs developed by FastAPI
             org.opencontainers.image.vendor=Nexis Limited
+          flavor: |
+            latest=auto
+            prefix=
+            suffix=
           tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
             type=ref, event=tag
-            type=schedule,pattern={{date 'YYYYMMDD'}}
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
             type=sha
       -
@@ -50,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
             context: .
-            platforms: linux/amd64
+            platforms: linux/amd64,linux/arm64
             push: true
             tags: ${{ steps.meta.outputs.tags }}
             labels: ${{ steps.meta.outputs.labels }}
@@ -58,5 +68,10 @@ jobs:
                 BUILDTIME=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
                 VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
                 REVISION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
+            cache-from: type=local,src=/tmp/.buildx-cache
+            cache-to: type=local,dest=/tmp/.buildx-cache
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
 
 
