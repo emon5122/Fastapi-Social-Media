@@ -41,10 +41,9 @@ jobs:
             org.opencontainers.image.vendor=Nexis Limited
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=ref, event=tag
             type=schedule,pattern={{date 'YYYYMMDD'}}
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}}
             type=sha
       -
         name: Build and Push
