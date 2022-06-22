@@ -34,7 +34,13 @@ jobs:
           images: |
             ghcr.io/emon5122/fastapi
           # generate Docker tags based on the following events/attributes
+          labels: |
+            maintainer=Istiak Hassan Emon
+            org.opencontainers.image.title=FastAPI
+            org.opencontainers.image.description=Social Media APIs developed by FastAPI
+            org.opencontainers.image.vendor=Nexis Limited
           tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
             type=schedule
             type=ref,event=branch
             type=ref,event=pr
@@ -52,5 +58,9 @@ jobs:
             push: true
             tags: ${{ steps.meta.outputs.tags }}
             labels: ${{ steps.meta.outputs.labels }}
+            build-args: |
+                BUILDTIME=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+                VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+                REVISION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
 
 
