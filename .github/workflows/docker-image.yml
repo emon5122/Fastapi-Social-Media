@@ -6,7 +6,7 @@ on: [push, pull_request]
 
 jobs:
   Docker:
-     if: ${{ always() && format('refs/heads/{0}', ) == github.ref }}
+     if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
      runs-on: ubuntu-latest
      steps:
         -
