@@ -41,9 +41,7 @@ jobs:
             org.opencontainers.image.vendor=Nexis Limited
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
+            type=schedule,pattern={{date 'YYYYMMDD'}}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
