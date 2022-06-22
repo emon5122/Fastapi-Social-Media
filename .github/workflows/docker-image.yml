@@ -30,10 +30,8 @@ jobs:
           id: meta
           uses: docker/metadata-action@v4
           with:
-            # list of Docker images to use as base name for tags
             images: |
               ghcr.io/emon5122/fastapi
-            # generate Docker tags based on the following events/attributes
             labels: |
               maintainer=Istiak Hassan Emon
               org.opencontainers.image.title=FastAPI
