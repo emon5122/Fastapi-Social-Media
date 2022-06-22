@@ -26,14 +26,6 @@ jobs:
            username: ${{ secrets.DOCKER_USER_NAME }}
            password: ${{secrets.DOCKER_IMG}}
       -
-        name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-      -
         name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
@@ -56,10 +48,19 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
             type=sha
       -
+        name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      -
         name: Build and Push
         uses: docker/build-push-action@v3
         with:
             context: .
+            file: Dockerfile
             platforms: linux/amd64,linux/arm64
             push: true
             tags: ${{ steps.meta.outputs.tags }}
