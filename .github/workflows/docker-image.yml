@@ -38,6 +38,7 @@ jobs:
               prefix=
               suffix=
             tags: |
+              type=raw,value=latest,enable={{is_default_branch}}
               type=ref, event=tag
               type=semver,pattern={{major}}.{{minor}}.{{patch}}
               type=sha
