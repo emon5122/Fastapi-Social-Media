@@ -1,5 +1,5 @@
 bcrypt==3.2.2
-dnspython==2.2.1
+dnspython==2.3.0
 email-validator==1.2.1
 fastapi==0.78.0
 psycopg2-binary==2.9.5
