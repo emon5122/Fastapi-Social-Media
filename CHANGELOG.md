@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/emon5122/Fastapi-Social-Media/compare/v2.0.1...v2.0.2) (2023-01-23)
+
+
+### Bug Fixes
+
+* silly fix --release-label autorelease:tagged ([0aac34e](https://github.com/emon5122/Fastapi-Social-Media/commit/0aac34e7224620c0d8ed8e4e84a870fe4d78cc17))
+
 ## [2.0.1](https://github.com/emon5122/Fastapi-Social-Media/compare/v2.0.0...v2.0.1) (2023-01-23)
 
 
