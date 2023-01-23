@@ -23,3 +23,4 @@ services:
 networks:
   db:
    external: true
+
