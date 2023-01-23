@@ -8,12 +8,7 @@ jobs:
         -
           name: checkout
           uses: actions/checkout@v3
-        - 
-          name: Tagger
-          uses: google-github-actions/release-please-action@v3
-          with:
-             release-type: python
-             package-name: release-please-action
+
         -
           name: Set up QEMU
           uses: docker/setup-qemu-action@v2
