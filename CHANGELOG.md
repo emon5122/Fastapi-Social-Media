@@ -1,5 +1,13 @@
 # Changelog
 
+### [3.0.1](https://www.github.com/emon5122/Fastapi-Social-Media/compare/v3.0.0...v3.0.1) (2023-01-23)
+
+
+### Bug Fixes
+
+* testing ([0b5d674](https://www.github.com/emon5122/Fastapi-Social-Media/commit/0b5d674e4642d7c9e7e23d7dd1007d1f24ec80e7))
+* testing ([2e69a47](https://www.github.com/emon5122/Fastapi-Social-Media/commit/2e69a473c7775ba453aa761914c94b23c73c59e4))
+
 ## [3.0.0](https://github.com/emon5122/Fastapi-Social-Media/compare/v2.0.2...v3.0.0) (2023-01-23)
 
 
