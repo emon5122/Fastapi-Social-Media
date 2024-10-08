@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.13
 LABEL org.opencontainers.image.description Fastapi Social Media APIs
 EXPOSE 8000
 WORKDIR /app
